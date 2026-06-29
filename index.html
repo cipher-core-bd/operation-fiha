@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Cipher Core // Riddle Challenge</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        body { font-family: 'Courier New', Courier, monospace; }
+    </style>
+</head>
+<body class="bg-slate-950 text-emerald-400 min-h-screen flex flex-col justify-center items-center p-4">
+
+    <div class="max-w-md w-full bg-slate-900 border border-emerald-500/30 rounded-lg p-6 shadow-2xl shadow-emerald-500/10">
+        
+        <div class="text-center mb-8 border-b border-emerald-500/20 pb-4">
+            <h1 class="text-2xl font-bold tracking-widest uppercase mb-1">▶ SYSTEM_INIT</h1>
+            <p class="text-xs text-slate-400">Operation: Fiha Equation v1.0.8</p>
+        </div>
+
+        <!-- SECTION 1: THE RIDDLE -->
+        <div id="riddleSection" class="space-y-6">
+            <div class="bg-black/40 border border-emerald-500/10 p-4 rounded text-sm leading-relaxed text-slate-300">
+                <span class="text-emerald-400 font-bold">// ENCRYPTED_LOGIC:</span><br>
+                "আমি একটি মানসিক অবস্থা ও গাণিতিক রূপক। মিসির আলির যুক্তি আর হিমুর আবেগ যেখানে একই বিন্দুতে এসে থমকে দাঁড়ায়, সেখানেই আমার অস্তিত্ব। হুমায়ূন আহমেদের এই বিখ্যাত সাইকোলজিক্যাল 'ইকুয়েশন' বা সমীকরণটির নাম কী?"
+            </div>
+
+            <div>
+                <label class="block text-xs uppercase tracking-wider text-slate-400 mb-2">Enter Decryption Key:</label>
+                <input type="text" id="riddleInput" placeholder="উত্তরটি বাংলায় লিখুন..." 
+                       class="w-full bg-black border border-emerald-500/30 rounded px-3 py-2 text-emerald-300 focus:outline-none focus:border-emerald-400 text-sm">
+            </div>
+
+            <button onclick="verifyKey()" 
+                    class="w-full bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold py-2.5 px-4 rounded transition-colors text-sm uppercase tracking-wider cursor-pointer">
+                EXECUTE_DECRYPTION()
+            </button>
+        </div>
+
+        <!-- SECTION 2: SUCCESS & UNLOCKED FORM -->
+        <div id="formSection" class="hidden space-y-6">
+            <div class="text-center py-2 bg-emerald-500/10 border border-emerald-500/30 rounded text-sm font-bold text-emerald-300">
+                ✔ DECRYPTION SUCCESSFUL!
+            </div>
+            
+            <p class="text-xs text-slate-300 leading-relaxed text-center">
+                অভিনন্দন! আপনি সঠিক উত্তর দিয়েছেন। আপনার বুদ্ধিমত্তার পুরস্কার হিসেবে <span class="text-emerald-400 font-bold">'ফিহা সমীকরণ'</span> বইটি আপনার ঠিকানায় পাঠিয়ে দেওয়া হচ্ছে। অনুগ্রহ করে নিচের ফর্মটি পূরণ করুন:
+            </p>
+
+            <form action="https://formspree.io/f/xaqgbngz" method="POST" class="space-y-4">
+                <div>
+                    <label class="block text-xs uppercase text-slate-400 mb-1">Full Name:</label>
+                    <input type="text" name="Name" required class="w-full bg-black border border-slate-700 rounded px-3 py-1.5 text-sm text-slate-200 focus:outline-none focus:border-emerald-500">
+                </div>
+                <div>
+                    <label class="block text-xs uppercase text-slate-400 mb-1">Contact Number:</label>
+                    <input type="tel" name="Phone" required class="w-full bg-black border border-slate-700 rounded px-3 py-1.5 text-sm text-slate-200 focus:outline-none focus:border-emerald-500">
+                </div>
+                <div>
+                    <label class="block text-xs uppercase text-slate-400 mb-1">Delivery Address:</label>
+                    <textarea name="Address" rows="3" required class="w-full bg-black border border-slate-700 rounded px-3 py-1.5 text-sm text-slate-200 focus:outline-none focus:border-emerald-500"></textarea>
+                </div>
+                <button type="submit" 
+                        class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-slate-950 font-bold py-2.5 px-4 rounded transition-colors text-sm uppercase tracking-wider cursor-pointer">
+                    CLAIM_REWARD()
+                </button>
+            </form>
+        </div>
+
+    </div>
+
+    <script>
+        function verifyKey() {
+            const answer = document.getElementById("riddleInput").value.trim();
+            if (answer === "ফিহা সমীকরণ" || answer === "ফিহা") {
+                document.getElementById("riddleSection").classList.add("hidden");
+                document.getElementById("formSection").classList.remove("hidden");
+            } else {
+                alert("❌ ACCESS DENIED: Invalid Decryption Key. Try again.");
+            }
+        }
+
+        const form = document.querySelector("form");
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(form);
+            const response = await fetch(form.action, {
+                method: form.method,
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            });
+            
+            if (response.ok) {
+                document.getElementById("formSection").innerHTML = `
+                    <div class="text-center py-6 text-emerald-400">
+                        <p class="text-lg font-bold mb-2">✔ DATA_LOGGED_SUCCESSFULLY</p>
+                        <p class="text-xs text-slate-400">আপনার উপহারটি আগামী ৩ কার্যদিবসের মধ্যে ঠিকানায় পৌঁছে যাবে। সিস্টেমে অংশ নেওয়ার জন্য ধন্যবাদ।</p>
+                    </div>`;
+            } else {
+                alert("❌ কোনো একটি সমস্যা হয়েছে। আবার চেষ্টা করুন।");
+            }
+        });
+    </script>
+</body>
+</html>
